@@ -19,9 +19,11 @@
 #import "JSQMessagesCollectionViewCell.h"
 
 /**
- *  A `JSQMessagesCollectionViewCellOutgoing` object is a concrete instance 
+ *  A `JSQMessagesCollectionViewCellOutgoing` object is a concrete instance
  *  of `JSQMessagesCollectionViewCell` that represents an outgoing message data item.
  */
 @interface JSQMessagesCollectionViewCellOutgoing : JSQMessagesCollectionViewCell
+
+@property (strong, nonatomic) UILabel *timestampLabel;
 
 @end

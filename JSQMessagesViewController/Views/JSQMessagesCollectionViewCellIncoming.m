@@ -20,6 +20,22 @@
 
 @implementation JSQMessagesCollectionViewCellIncoming
 
+@synthesize timestampLabel = _timestampLabel;
+
+#pragma mark - Getter method overrides
+
+- (UILabel *)timestampLabel
+{
+    if (!_timestampLabel) {
+        _timestampLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth([[[UIApplication sharedApplication] keyWindow] frame]), 0.0, 75.0, 38.0)];
+        _timestampLabel.textColor = [UIColor lightGrayColor];
+        _timestampLabel.font = [UIFont systemFontOfSize:11.0];
+        _timestampLabel.textAlignment = NSTextAlignmentLeft;
+    }
+
+    return _timestampLabel;
+}
+
 #pragma mark - Overrides
 
 - (void)awakeFromNib
@@ -27,6 +43,7 @@
     [super awakeFromNib];
     self.messageBubbleTopLabel.textAlignment = NSTextAlignmentLeft;
     self.cellBottomLabel.textAlignment = NSTextAlignmentLeft;
+    [self.contentView addSubview:[self timestampLabel]];
 }
 
 @end

@@ -137,6 +137,7 @@ JSQMessagesKeyboardControllerDelegate>
 @property (weak, nonatomic) UIGestureRecognizer *currentInteractivePopGestureRecognizer;
 
 @property (assign, nonatomic) BOOL textViewWasFirstResponderDuringInteractivePop;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewBottomConstraint;
 
 @end
 
@@ -1150,6 +1151,17 @@ JSQMessagesKeyboardControllerDelegate>
                                                                       action:@selector(jsq_handleInteractivePopGestureRecognizer:)];
         self.currentInteractivePopGestureRecognizer = self.navigationController.interactivePopGestureRecognizer;
     }
+}
+
+// Hack to make the bottom constraint line up on iPhone X
+- (void)viewSafeAreaInsetsDidChange {
+    [super viewSafeAreaInsetsDidChange];
+    self.toolbarBottomLayoutGuide.active = NO;
+    self.toolbarBottomLayoutGuide = [NSLayoutConstraint constraintWithItem:self.view.safeAreaLayoutGuide attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.inputToolbar attribute:NSLayoutAttributeBottom multiplier:1.0f constant:0.0f];
+    self.toolbarBottomLayoutGuide.active = YES;
+    self.collectionViewBottomConstraint.active = NO;
+    self.collectionViewBottomConstraint = [NSLayoutConstraint constraintWithItem:self.view.safeAreaLayoutGuide attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.collectionView attribute:NSLayoutAttributeBottom multiplier:1.0f constant:0.0f];
+    self.collectionViewBottomConstraint.active = YES;
 }
 
 @end
